@@ -1,2 +1,2 @@
 # CenterNet-darknet
-Darknet implementation of CenterNet
+A Darknet implementation of CenterNet, which support training and inference.
