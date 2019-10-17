@@ -1,0 +1,6 @@
+classes= 80
+train  = /data/yoloCao/DataSet/coco2014/trainvalno5k.txt
+#valid = data/coco_val_5k.list
+names = train_config/coco.names
+backup = weights/backup
+
