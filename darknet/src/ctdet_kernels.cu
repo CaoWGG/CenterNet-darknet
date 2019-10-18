@@ -27,15 +27,13 @@ __global__ void forward_ctdet_loss_layer_kernel(int n, int in_h, int in_w,int cl
     float x,y,w,h,tx,ty,tw,th,predx,predy,predx1,predy1,inter,uino,iou;
     int index = b*in_w*in_h*(classes+4) + k*in_w*in_h + j*in_w+i;
     label=truth[index];
-    float alpha = 0.5;
     float pt = output[index] + 0.000000000000001F;
-    float grad = -(1 - pt) * (2 * pt*logf(pt) + pt - 1);
     if(label< 1)
     {
-        delta[index] = (-output[index])*grad*pow(1-label,4)*hm_weight;
+        delta[index] = (-powf(pt,3)+2*powf(pt,2)*(1-pt)*logf(1-pt)) * powf(1-label,4)*hm_weight;
     } else if(label == 1)
     {
-        delta[index] = alpha*(1-output[index])*grad*hm_weight;
+        delta[index] = (powf(1-pt,3)-2*powf(1-pt,2)*pt*logf(pt))*hm_weight;
         int box_index = b*in_w*in_h*(classes+4) + classes*in_w*in_h + j*in_w+i;
         x = truth[box_index+0];
         y = truth[box_index+1*stride];
