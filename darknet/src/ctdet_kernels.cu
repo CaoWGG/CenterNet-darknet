@@ -81,8 +81,8 @@ extern "C" void forward_ctdet_loss_layer_gpu( layer l, network net)
 
 __global__ void forward_ctdet_maxpool_layer_kernel(int n, int in_h, int in_w, int in_c, int stride, int size, int pad, float *input,int *indexes,int* numdet)
 {
-    int h = (in_h + pad - size)/stride + 1;
-    int w = (in_w + pad - size)/stride + 1;
+    int h = (in_h + 2*pad - size)/stride + 1;
+    int w = (in_w + 2*pad - size)/stride + 1;
     int c = in_c;
     int id = (blockIdx.x + blockIdx.y*gridDim.x) * blockDim.x + threadIdx.x;
     if(id >= n) return;
@@ -93,8 +93,8 @@ __global__ void forward_ctdet_maxpool_layer_kernel(int n, int in_h, int in_w, in
     int k = id % c;
     id /= c;
     int b = id;
-    int w_offset = -pad/2;
-    int h_offset = -pad/2;
+    int w_offset = -pad;
+    int h_offset = -pad;
     int out_index = b*in_w*in_h*(c+4) + k*in_w*in_h + j*in_w+i;
     float max = -INFINITY;
     int max_i = -1;

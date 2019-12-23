@@ -13,10 +13,10 @@ heads.update({'hm':80})
 net = get_pose_net(34,heads)
 input = torch.zeros([1,3,512,512])
 cfg = parse_graph(net,(input,),verbose=True)
-save_cfg(cfg,dla34_cfg)
-save_weights(cfg,dla34_weight)
-
-
-## check weight and cfg
-parse_weights(parse_cfg(dla34_cfg),dla34_weight)
+# save_cfg(cfg,dla34_cfg)
+# save_weights(cfg,dla34_weight)
+#
+#
+# ## check weight and cfg
+# parse_weights(parse_cfg(dla34_cfg),dla34_weight)
 print("convert ok")

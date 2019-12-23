@@ -347,9 +347,9 @@ layer parse_ctdet(list *options, size_params params)
 {
     int classes = option_find_int(options, "classes", 80);
 
-    int stride = option_find_int(options, "stride",1);
+    int stride = option_find_int_quiet(options, "stride",1);
     int size = option_find_int(options, "size",stride);
-    int padding = size/2;
+    int padding = (size-1)/2;
     layer l = make_ctdet_layer(params.batch, params.w, params.h, classes,size,stride,padding);
     assert(l.outputs == params.inputs);
 
